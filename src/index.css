@@ -1,0 +1,33 @@
+.input-form{
+  width: 400px;
+}
+.input-form input{
+  box-sizing: border-box;
+  height: 30px;
+  border: 0px;
+  border-radius: 0px;
+  box-shadow: 0 0px 2px 0px;
+}
+.input-form input:focus{
+  box-shadow: 0 0px 3px 0px #33d;
+}
+.input-form-div{
+  width: 100%;
+  box-shadow: 0 0px 2px 0px;
+}
+.input-form-list{
+  margin:0;
+  padding: 0;
+  padding-top: 10px;
+  list-style: none;
+}
+.input-form-list li{
+  height: 25px;
+}
+
+.input-form input, .input-form-list li{
+  width: 100%;
+  padding-left: 10px;
+  font: 16px arial,sans-serif;
+  color: #555;
+}
