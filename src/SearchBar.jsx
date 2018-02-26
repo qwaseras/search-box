@@ -36,11 +36,16 @@ class SearchBar extends Component {
     this.setState({suggestions:  [] })
   }
 
+  handleIconClick = () => {
+    this.props.history.push(`/results/${this.state.value}`)
+    this.setState({suggestions:  [] })
+  }
+
   render() {
     return (
         <div className='search-box'>
           <input type="text" className="search-input form-control" placeholder="Search..." value={this.state.value} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <span className="icon"><i className="fa fa-search"></i></span>
+          <span className="icon" onClick={this.handleIconClick}><i className="fa fa-search"></i></span>
           <ul className="list-group" onClick={this.handleSuggestionClick}>
             {this.state.suggestions.map(function(suggestion, index){
               return <Suggestion key={ index } value={suggestion} history={this.props.history}/>;

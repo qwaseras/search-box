@@ -15,6 +15,9 @@ body{
   display: flex;
   flex:auto;
 }
+
+/*Main page*/
+
 .main-container{
   flex:auto;
   flex-direction: column;
@@ -51,4 +54,22 @@ body{
 }
 .search-box li{
   background-color: #fff;
+}
+
+
+/*Result page*/
+
+.pages{
+  padding: 20px 20px;
+  flex: auto;
+}
+.results{
+  padding-top: 20px;
+}
+.results .list-group-item{
+  border: none;
+  padding-bottom: 5px;
+}
+.results h5{
+  color: blue;
 }
