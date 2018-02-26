@@ -19,6 +19,8 @@ class SearchBar extends Component {
     this.setState({value: event.target.value});
     if (event.target.value.length > 2){
       this.setState({suggestions:  [{name: 'one'}, {name: 'two'}, {name: 'three'}]})
+    }else{
+      this.setState({suggestions:  []})
     }
   };
 
@@ -36,12 +38,13 @@ class SearchBar extends Component {
 
   render() {
     return (
-        <div className="input-form">
-          <input type="text" placeholder="Search" value={this.state.value} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <ul className="input-form-list" style={{position: 'absolute'}} onClick={this.handleSuggestionClick}>
+        <div className='search-box'>
+          <input type="text" className="search-input form-control" placeholder="Search..." value={this.state.value} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          <span className="icon"><i className="fa fa-search"></i></span>
+          <ul className="list-group" onClick={this.handleSuggestionClick}>
             {this.state.suggestions.map(function(suggestion, index){
-              return <Suggestion key={ index } value = {suggestion}/>;
-            })}
+              return <Suggestion key={ index } value={suggestion} history={this.props.history}/>;
+            }, this)}
           </ul>
         </div>
     );

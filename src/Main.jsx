@@ -4,7 +4,10 @@ import Search from './SearchBar.jsx';
 class Main extends Component {
   render() {
     return (
-      <Search history={this.props.history}/>
+      <div className="main-container">
+        <img src="/codex-logo.svg" alt="Codex Software" />
+        <Search history={this.props.history}/>
+      </div>
     );
   }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
 
 class Suggestion extends Component {
   constructor(props) {
@@ -7,9 +6,15 @@ class Suggestion extends Component {
     this.state = {value: props.value}
   };
 
+  handleClick = (event) => {
+    this.props.history.push(`/results/${this.state.value.name}`)
+  };
+
   render() {
     return (
-      <li style={{backgroundColor: 'white', minWidth: '300px' }}onClick={this.handleClick}> <NavLink to={`/results/${this.state.value.name}`} >{this.state.value.name}</NavLink></li>
+      <li className="list-group-item list-group-item-action" onClick={this.handleClick}>
+        {this.state.value.name}
+      </li>
     );
   }
 }
