@@ -7,13 +7,13 @@ class Suggestion extends Component {
   };
 
   handleClick = (event) => {
-    this.props.history.push(`/results/${this.state.value.name}`)
+    this.props.history.push(`/results/${this.state.value.key}`)
   };
 
   render() {
     return (
       <li className="list-group-item list-group-item-action" onClick={this.handleClick}>
-        {this.state.value.name}
+        {this.state.value.key}
       </li>
     );
   }

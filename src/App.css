@@ -38,6 +38,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 999;
 }
 .search-box .icon{
   position: absolute;
@@ -72,4 +73,7 @@ body{
 }
 .results h5{
   color: blue;
+}
+.result-text{
+  width: 40%;
 }

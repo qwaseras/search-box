@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Suggestion from './Suggestion';
+import axios from 'axios';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -18,7 +19,14 @@ class SearchBar extends Component {
   handleChange(event) {
     this.setState({value: event.target.value});
     if (event.target.value.length > 2){
-      this.setState({suggestions:  [{name: 'one'}, {name: 'two'}, {name: 'three'}]})
+      axios.get(`http://localhost:8080/api/v1/autocomplete/${event.target.value}`)
+        .then((response) => {
+          this.setState({suggestions: response.data})
+        })
+        .catch((error) => {
+          console.log(error);
+          this.setState({suggestions:  [] })
+        });
     }else{
       this.setState({suggestions:  []})
     }

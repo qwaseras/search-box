@@ -1,32 +1,69 @@
 import React, { Component } from 'react';
 import Search from './SearchBar.jsx';
-import { NavLink } from 'react-router-dom'
+import axios from 'axios';
 
 class Results extends Component {
+  constructor(props){
+    super(props);
+    this.state = { results: [], status: 'loading...' }
+  }
+
+  getApiData = (query) => {
+    axios.get(`http://localhost:8080/api/v1/find/${query}`)
+      .then( ( response ) => {
+        this.setState({results: response.data})
+        if ( response.data.length < 1 ){
+          this.setState( { status: 'The search has not given any results' } )
+        }
+      })
+      .catch( (error) => {
+        console.log( error );
+      }
+    );
+  }
+
+  componentDidMount(){
+    this.getApiData(this.props.match.params.query)
+  }
+
+  componentWillReceiveProps( nextProps ){
+    if( nextProps !== this.props ){
+      this.getApiData( nextProps.match.params.query )
+    }
+  }
+
+
   render() {
+    if ( this.state.results.length > 0) {
     return (
       <div className="pages">
         <Search history={this.props.history} value={this.props.match.params.query} />
         <div className='list-group results'>
-          <NavLink to={`/article/1`} className="list-group-item list-group-item-action flex-column align-items-start ">
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
-            </div>
-            <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            <small>Donec id elit non mi porta.</small>
-          </NavLink>
-          <NavLink to={`/article/1`} className="list-group-item list-group-item-action flex-column align-items-start ">
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="mb-1">List group item heading</h5>
-              <small>3 days ago</small>
-            </div>
-            <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-            <small>Donec id elit non mi porta.</small>
-          </NavLink>
+
+          {this.state.results.map((result, index) => {
+            return  <a href={result.url}  target="_blank" key={index}
+                            className="list-group-item list-group-item-action flex-column align-items-start ">
+                      <div className="d-flex w-100 justify-content-between">
+                        <h5 className="mb-1">{result.title}</h5>
+                        <small>3 days ago</small>
+                      </div>
+                      <p className="mb-1 result-text">{result.text.split('.').slice(0, 1)}...</p>
+                      <small>Donec id elit non mi porta.</small>
+                    </a>
+          })}
         </div>
       </div>
     );
+    }else{
+      return (
+        <div className="pages">
+          <Search history={this.props.history} value={this.props.match.params.query} />
+          <div className='list-group results'>
+            {this.state.status}
+          </div>
+        </div>
+      );
+    }
   }
 }
 export default Results;
