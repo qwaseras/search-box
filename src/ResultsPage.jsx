@@ -47,7 +47,9 @@ class Results extends Component {
                         <h5 className="mb-1">{result.title}</h5>
                         <small>3 days ago</small>
                       </div>
-                      <p className="mb-1 result-text">{result.text.split('.').slice(0, 1)}...</p>
+                        <div className='result-text'
+                             dangerouslySetInnerHTML={{__html: JSON.parse(result.highlight)}}
+                          />
                       <small>Donec id elit non mi porta.</small>
                     </a>
           })}
